@@ -28,6 +28,7 @@ let timed = [
 let times = timea.concat(timeb,timec,timed);
 let gola=0;
 let golb=0;
+// começando o menor ranking bem alto para ir procurando o menor
 let menor=2000;
 // encontrar menor ranking
 times.forEach(rmenor);
@@ -59,13 +60,17 @@ if (document.title=="grupoa"){
    
     });
 function rmenor(item,index){
-  if (item.ranking<menor){
+   // se ranking do item atual e menor do que o menor..
+   // então ele se torna o novo menor
+    if (item.ranking<menor){
     menor=item.ranking;
   } 
 }
 
 function criarforca(item,index) {
+    // usar o valor de menor para estabelecer forca de cada equipe
     item.forca= item.ranking/ menor;
+    // o pior time terá força 1 e o restante de 1 em diante
 }
 
 // receberá a e b, sendo a e b os indices dos times na matriz de times

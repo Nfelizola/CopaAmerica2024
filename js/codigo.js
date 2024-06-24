@@ -22,18 +22,24 @@ let timec = [
 let timed = [
     { nome: "Brasil", ranking: 1795.13, forca: 0 },
     { nome: "Colômbia", ranking: 1612.78, forca: 0 },
-    { nome: "Costa Rica", ranking: 1440.77, forca: 0 },
+    { nome: "C. Rica", ranking: 1440.77, forca: 0 },
     { nome: "Paraguai", ranking: 1430.73,forca: 0},
 ];
+let alvo=[];
 let times = timea.concat(timeb,timec,timed);
+
 let gola=0;
 let golb=0;
 // começando o menor ranking bem alto para ir procurando o menor
 let menor=2000;
+let timer;
+let idpartida;
 // encontrar menor ranking
 times.forEach(rmenor);
 // gerar força baseado no fator 553.16
 times.forEach(criarforca);
+
+// em seguida ao carregar pagina criar as partidas conforme o title da página do grupo
 document.addEventListener('DOMContentLoaded', function() {
     // Exemplo de manipulação do DOM
     // iremos criar tofas as 
@@ -59,6 +65,8 @@ if (document.title=="grupoa"){
 
    
     });
+
+
 function rmenor(item,index){
    // se ranking do item atual e menor do que o menor..
    // então ele se torna o novo menor
@@ -74,50 +82,44 @@ function criarforca(item,index) {
 }
 
 // receberá a e b, sendo a e b os indices dos times na matriz de times
-function partida(a,b) {
+function partida(a,b,e) {
+    // criar matriz chamada minuto,lance
+    // colocar os lances aqui para serem exibidos conforme cronometro for avançando
+    let mgol="x";
     // cada oportunidade bem aproveitada resulta em Gol
+   let botao=document.getElementById(e);
+   botao.setAttribute("disabled", true);
    console.clear();
-   console.log("--------------simulando------------------");
-    // numero de lances que haverão na partida
-    let l = D(12);
-    let espacomin = Math.round(90/l);
-    // todo: Pensar no Balanceamento dos minutos da 
-    console.log("oportunidades lances de gol na partida foram " +l);
-    for (let n = 0; n<l; n++) {
-        console.log("......... "+ (n+1));
-        // aplicando regra definida
-       // Fórmula seria:  (força * D10)+(sorte(D10)*dia(D2))
-     let resultadoa, resultadob;
-        // formula simplificada, menos sorte e mais ranking
-     resultadoa = (alvo[a].forca*D(2))+(D(4)*D(2));
-    resultadob = (alvo[b].forca*D(2))+(D(4)*D(2));
-    //console.log(times[a].nome + "Fez: "+ resultadoa);
-    //console.log(times[b].nome + "Fez: "+resultadob);
-   let mensagem="";
-    if (resultadoa>resultadob){
-       mensagem = alvo[a].nome + "  have a oportuniite and...";
-        if (Math.round((resultadob/resultadoa))<=.70) {
-            mensagem+="Gol....  aos "+espacomin*(n+1);
-            gola++;
-        }else{
-            mensagem+="perdeu a oportunidade....  aos "+espacomin*(n+1);
-        }
-    }else {
-        mensagem =alvo[b].nome + "  have a oportuniite and...";
-        if (Math.round((resultadoa/resultadob))<=.70) {
-            mensagem+="Gol.... aos "+espacomin*(n+1);
-            golb++;
-        }else{
-            mensagem+="perdeu a oportunidade.... aos "+espacomin*(n+1);
-        }
-    }
-    console.log("Olho no Lance: "+mensagem);
-    }
-         
-  console.log("Placar Final ");
-  console.log(alvo[a].nome +" "+gola+" X "+golb+" "+alvo[b].nome);
-  gola=0;
-  golb=0;
+   console.log(e);
+   if (e=="start1"){
+      timer="timer1";
+      idpartida="p1";
+    };
+   if (e=="start2"){
+    timer="timer2";
+    idpartida="p2";
+  };
+  if (e=="start3"){
+    timer="timer3";
+    idpartida="p3";
+  };
+  if (e=="start4"){
+    timer="timer4";
+    idpartida="p4";
+  };
+  if (e=="start5"){
+    timer="timer5";
+    idpartida="p5";
+  };
+  if (e=="start6"){
+    timer="timer6";
+    idpartida="p6";
+  };
+  
+  
+   startAcceleratedTimer(90, 2,a,b);
+  //gola=0;
+  //golb=0;
   
 };
 
@@ -134,37 +136,103 @@ function criarpartidas(t,e){
     //0,1
     
      e.innerHTML+='<img src="'+ t[0].nome+'.svg" class="bandeira">';
-    e.innerHTML+='<p>'+t[0].nome+'[_] x [_]'+t[1].nome+'</p>';
+    e.innerHTML+='<p id="p1">'+t[0].nome+'[_] x [_]'+t[1].nome+'</p>';
     e.innerHTML+='<img src="'+t[1].nome+'.svg" class="bandeira">';
-    e.innerHTML+='<button id="start" class="botao" onclick="partida(0,1)">ok</button><p id="timer">45:00:00</p>';
+    e.innerHTML+='<button id="start1" class="botao" onclick="partida(0,1,this.id)">ok</button><p id="timer1">45:00</p>';
    //1,2
    e.innerHTML+='<img src="'+ t[1].nome+'.svg" class="bandeira">';
-   e.innerHTML+='<p >'+t[1].nome+'[__]  x  [__]'+t[2].nome+'</p>';
+   e.innerHTML+='<p id="p2">'+t[1].nome+'[_]   x   [_] '+t[2].nome+'</p>';
    e.innerHTML+='<img src="'+t[2].nome+'.svg" class="bandeira">';
-   e.innerHTML+='<button id="start" class="botao" onclick="partida(1,2)">ok</button><p>45:00:00</p>';
+   e.innerHTML+='<button id="start2" class="botao" onclick="partida(1,2,this.id)">ok</button><p id="timer2"> 45:00</p>';
    //0,3
    e.innerHTML+='<img src="'+ t[0].nome+'.svg" class="bandeira">';
-   e.innerHTML+='<p>   '+t[0].nome+'[_] x [_]'+t[3].nome+'</p>';
+   e.innerHTML+='<p id="p3">'+t[0].nome+'[_] x [_]'+t[3].nome+'</p>';
    e.innerHTML+='<img src="'+t[3].nome+'.svg" class="bandeira">';
-   e.innerHTML+='<button id="start" class="botao" onclick="partida(0,3)">ok</button><p>45:00:00</p>';
+   e.innerHTML+='<button id="start3" class="botao" onclick="partida(0,3,this.id)">ok</button><p id="timer3">45:00</p>';
   //1,3
    e.innerHTML+='<img src="'+ t[1].nome+'.svg" class="bandeira">';
-    e.innerHTML+='<p>'+t[1].nome+'[__]  x  [__]'+t[3].nome+'</p>';
+    e.innerHTML+='<p id="p4">'+t[1].nome+'[_]  x  [_]'+t[3].nome+'</p>';
     e.innerHTML+='<img src="'+t[3].nome+'.svg" class="bandeira">';
-    e.innerHTML+='<button id="start" class="botao" onclick="partida(1,3)">ok</button><p>45:00:00</p>';
+    e.innerHTML+='<button id="start4" class="botao" onclick="partida(1,3,this.id)">ok</button><p id="timer4">45:00</p>';
   //0,2
   e.innerHTML+='<img src="'+ t[0].nome+'.svg" class="bandeira">';
-  e.innerHTML+='<p>'+t[0].nome+'[_] x [_]'+t[2].nome+'</p>';
+  e.innerHTML+='<p id="p5">'+t[0].nome+'[_] x [_]'+t[2].nome+'</p>';
   e.innerHTML+='<img src="'+t[2].nome+'.svg" class="bandeira">';
-  e.innerHTML+='<button id="start" class="botao" onclick="partida(0,2)">ok</button><p>45:00:00</p>';
+  e.innerHTML+='<button id="start5" class="botao" onclick="partida(0,2,this.id)">ok</button><p id="timer5">45:00</p>';
     
     //2,3
     e.innerHTML+='<img src="'+ t[2].nome+'.svg" class="bandeira">';
-     e.innerHTML+='<p>'+t[2].nome+'[__]  x  [__]'+t[3].nome+'</p>';
+     e.innerHTML+='<p id="p6">'+t[2].nome+'[_]  x  [_]'+t[3].nome+'</p>';
      e.innerHTML+='<img src="'+t[3].nome+'.svg" class="bandeira">';
-     e.innerHTML+='<button id="start" class="botao" onclick="partida(2,3)">ok</button><p>45:00:00</p>';
+     e.innerHTML+='<button id="start6" class="botao" onclick="partida(2,3,this.id)">ok</button><p id="timer6">45:00</p>';
                   
    };
   
 
        
+   function startAcceleratedTimer(totalSimulatedMinutes, totalRealMinutes,a,b) {
+    const totalSimulatedSeconds = totalSimulatedMinutes * 60;
+    const totalRealSeconds = totalRealMinutes * 60;
+    const accelerationFactor = totalSimulatedSeconds / totalRealSeconds; 
+    let simulatedSeconds = 0;
+    const timerElement = document.getElementById(timer);
+
+    function updateTimer() {
+        let letreiro = document.getElementById("balao");
+        let minutes = Math.floor(simulatedSeconds / 60);
+        let seconds = Math.floor(simulatedSeconds % 60);
+        balao = document.getElementById("balao");
+        partidaatual = document.getElementById(idpartida);
+        // balao.innerHTML="<p>."+minutes+".."+lancealance[0evento.lance+"... e "+evento.definicao+"</p>";
+          // Usando find com uma função anônima tradicional
+       balao.innerHTML="<p>"+minutes+":"+seconds+"-"+lancejogo(a,b)+"</p>";
+       partidaatual = document.getElementById(idpartida);
+       partidaatual.innerHTML='<p id="p'+idpartida+'">'+alvo[a].nome+'['+gola+'] x ['+golb+']'+alvo[b].nome+'</p>';
+        timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        if (simulatedSeconds > totalSimulatedSeconds) {
+            clearInterval(timerInterval);
+            gola=0;
+            golb=0;
+            return;
+        }
+        simulatedSeconds += accelerationFactor;
+    }
+
+    const timerInterval = setInterval(updateTimer, 1000);
+    
+};
+
+
+
+
+function lancejogo(a,b){
+ if (D(20)>17){
+        console.log("--------------simulando------------------");
+        resultadoa = (alvo[a].forca*D(2))+(D(4)*D(2));
+        resultadob = (alvo[b].forca*D(2))+(D(4)*D(2));
+        let txtlance="";
+        let txtdefinicao="";
+        if (resultadoa>resultadob){
+        txtlance= alvo[a].nome + " Ataca e têm a chance ....";
+            if (Math.round((resultadob/resultadoa))<=.70) {
+                txtdefinicao="e Marca o Gol.... ";
+                gola=gola+1;
+                console.log(alvo[a].nome+" fez o gol:"+gola );
+                    }else{
+                txtdefinicao=".. putz perdeu a chance"; 
+            }
+        }else {
+            txtlance= alvo[b].nome + " Ataca e têm a chance ....";
+            if (Math.round((resultadoa/resultadob))<=.70) {
+                txtdefinicao="e Marca o Gol.... ";
+                golb=golb+1;
+                console.log(alvo[b].nome+" fez o gol:"+golb );
+                    }else{
+                txtdefinicao=".. putz perdeu a chance"; //espacomin*(n+1);
+            }
+        }
+        return txtlance+"-"+txtdefinicao;
+} else {
+    return "Jogo rolando...";
+}
+};

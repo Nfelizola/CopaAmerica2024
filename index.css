@@ -7,17 +7,31 @@
     text-decoration: none;
 }
 body{
-    font-size: 100%;
+    font-size: 14px;
     list-style-type: none;
 }
 p{
-    heigth:20px;
+    heigth:26px;
+    font-size:12px;
 }
 
-#timer{
-    font-size: 16px;
-    
-
+#timer1{
+    font-size: 22px;
+}
+#timer2{
+    font-size: 22px;
+}
+#timer3{
+    font-size: 22px;
+}
+#timer4{
+    font-size: 22px;
+}
+#timer5{
+    font-size: 22px;
+}
+#timer6{
+    font-size: 22px;
 }
 .bandeira{
     width:60px;
@@ -105,6 +119,7 @@ p{
     left:160px;
     width:110px;
     height:80px;
+    font-size: 10px;
     background-image: url("frase.png");
     background-size: 120px 80px;
     z-index: -1;

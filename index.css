@@ -13,6 +13,12 @@ body{
 p{
     heigth:20px;
 }
+
+#timer{
+    font-size: 16px;
+    
+
+}
 .bandeira{
     width:60px;
     height:30px;
@@ -92,6 +98,17 @@ p{
     width: 360px;
     height: 90px;
    }
+.balao{
+    position:absolute;
+    padding:5px;
+    top:15px;
+    left:160px;
+    width:110px;
+    height:80px;
+    background-image: url("frase.png");
+    background-size: 120px 80px;
+    z-index: -1;
+}
 .modelo-grupo {
     width: 360px;
     height: 950px;

@@ -136,7 +136,7 @@ function criarpartidas(t,e){
      e.innerHTML+='<img src="'+ t[0].nome+'.svg" class="bandeira">';
     e.innerHTML+='<p>'+t[0].nome+'[_] x [_]'+t[1].nome+'</p>';
     e.innerHTML+='<img src="'+t[1].nome+'.svg" class="bandeira">';
-    e.innerHTML+='<button id="start" class="botao" onclick="partida(0,1)">ok</button><p>45:00:00</p>';
+    e.innerHTML+='<button id="start" class="botao" onclick="partida(0,1)">ok</button><p id="timer">45:00:00</p>';
    //1,2
    e.innerHTML+='<img src="'+ t[1].nome+'.svg" class="bandeira">';
    e.innerHTML+='<p >'+t[1].nome+'[__]  x  [__]'+t[2].nome+'</p>';
